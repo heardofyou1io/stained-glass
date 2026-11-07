@@ -43,4 +43,4 @@ Copy `stained-glass/` into `~/.claude/skills/`. `SKILL.md` tells Claude when to 
 
 ## Credits
 
-Made for [Heard of You](https://heardofyou.io), whose homepage window is lit by this engine. Code under the MIT licence. The window art and the glass bank maps in `demo/` belong to Heard of You; use them to try the demo, not in your own products.
+Made for [Heard of You](https://heardofyou.io), whose stained-glass art it was built to light. Code under the MIT licence. The window art and the glass bank maps in `demo/` belong to Heard of You; use them to try the demo, not in your own products.
