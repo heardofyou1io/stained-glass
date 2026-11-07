@@ -19,6 +19,10 @@ What we learned along the way: code is great at light, depth and motion, and poo
 
 ## Try it
 
+Live demo: https://heardofyou1io.github.io/stained-glass/
+
+Or locally:
+
 ```bash
 cd demo && python3 -m http.server 8000     # then open http://localhost:8000
 ```
