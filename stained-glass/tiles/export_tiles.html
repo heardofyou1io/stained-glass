@@ -1,0 +1,14 @@
+<meta charset="utf-8"><body>
+<script src="../engine/glassengine.js"></script><script src="glassdraw.js"></script><script src="svgglass.js"></script><script src="glaze.js"></script><script src="tiles.js"></script>
+<script>
+// For each tile: piece map (R,G = id, B = 255 where the picture has glass or lead) and the target colour of every piece.
+window.exportTile = async function (nm, outline, leadScale) {
+  var parts = nm.split(':'), t = parts[1] ? GlassTiles[parts[0]](parts[1]) : GlassTiles[nm](), B = await SvgGlass.build(t.svg, TILE_MAT, 1, { raw: true, outline: outline, leadScale: leadScale });
+  Glaze.bake(B, { center: t.center, ramp: t.ramp, unit: t.unit });
+  var S = 768, c = document.createElement("canvas"); c.width = c.height = S; var x = c.getContext("2d"), im = x.createImageData(S, S);
+  for (var i = 0; i < S * S; i++) { var o = i * 4, p = B.piece[i]; im.data[o] = p & 255; im.data[o + 1] = p >> 8; im.data[o + 2] = B.owner[i] || B.lead[i] && (B.owner[i - 1] || B.owner[i + 1]) ? 255 : 0; im.data[o + 3] = 255; }
+  x.putImageData(im, 0, 0);
+  var meta = { name: nm.replace(':', '_'), pieces: B.pieces.map(function (p) { return { id: p.id, col: p.col.map(Math.round), g: p.g.mat.g || 0, f: p.g.mat.f || 0, m: p.g.mat.name }; }), center: t.center, spread: t.spread || .19, sub: t.sub !== false && (GlassTiles[parts[0]] || {}).sub !== false, subMats: t.subMats || null, subArea: t.subArea || 3200 };
+  return { png: c.toDataURL("image/png"), meta: meta };
+};
+</script>
